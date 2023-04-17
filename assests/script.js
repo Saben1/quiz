@@ -1,3 +1,4 @@
+// Create questions,answers and correct answer for quiz
 let questions = [
     {
     question: "What is the capital city of Australia?",
@@ -26,6 +27,7 @@ let questions = [
     correct: "Gautam Buddha",
   },
 ];
+// Declare global variable
 let Ql = 0;
 let clockId;
 let time = 59;
@@ -33,12 +35,13 @@ let clock = document.getElementById("time");
 let prompt = document.querySelector("main");
 let randomQuestions = questions.sort(() => Math.random() - 0.5);
 let score = 0;
+//start Quiz Operation
 document.getElementById("start").addEventListener("click", clickStart);
 function clickStart() {
   clockId = setInterval(handleTime, 1000);
   handleQuestion();
 }
-
+// 
 function handleQuestion() {
   if (Ql < questions.length) {
     let {
@@ -47,6 +50,7 @@ function handleQuestion() {
       correct
     } = questions[Ql];
     Ql++;
+    //Display Quiz Section
     prompt.innerHTML = `<p>${question}</p>`;
     answers.forEach((answer) => {
       let answerBtn = document.createElement("button");
@@ -58,13 +62,14 @@ function handleQuestion() {
       });
     });
   } else {
+    //Display message after the end of quiz
     prompt.innerHTML = `
     <p>Your final score is ${score}</p>
     <p>Thanks for playing</p>`;
     Gameover();
   }
 }
-
+// Check wether the answer is correct
 function checkAnswer(answer, correct) {
   if (answer === correct) {
     score++;
@@ -75,7 +80,7 @@ function checkAnswer(answer, correct) {
     handleQuestion();
   }
 }
-
+//Timer operation
 function handleTime() {
   time--;
   time > 0 ? (clock.innerHTML = time) : Gameover();
